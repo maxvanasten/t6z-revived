@@ -7,7 +7,10 @@
   "type": "commonjs",
   "main": "server.js",
   "scripts": {
-    "move_storage": "mv ./t6/storage TODOTODOTODO",
-    "start": "// linux start server command"
+    "start": "/opt/T6Server/Plutonium/T6Server.sh",
+    "sync_scripts": "rm -rf /opt/T6Server/Plutonium/storage/t6/scripts && cp -r ./t6/scripts /opt/T6Server/Plutonium/storage/t6/scripts",
+    "update": "git pull && npm install && npm run sync_scripts",
+
+    "refresh": "npm run update && npm run start"
   }
 }
