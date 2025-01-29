@@ -1,0 +1,13 @@
+{
+  "name": "t6z-revived",
+  "version": "0.0.1",
+  "description": "A Black Ops 2: Zombies server project",
+  "license": "ISC",
+  "author": "Max van Asten",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "move_storage": "mv ./t6/storage TODOTODOTODO",
+    "start": "// linux start server command"
+  }
+}
