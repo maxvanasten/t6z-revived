@@ -72,7 +72,7 @@ ttg_init()
 	self.gobblegum_list[self.gobblegum_list.size] = "weapon_upgrade";
 	print("Init title");
 	self.gpp_ui_gg_hud_title = createFontString("objective", 1.5);
-	self.gpp_ui_gg_hud_title setPoint("center", "center", -300, 100);
+	self.gpp_ui_gg_hud_title setPoint("center", "center", 300, -50);
 	self.gpp_ui_gg_hud_title.alpha = 1;
 	self.gpp_ui_gg_hud_title.hidewheninmenu = true;
 	self.gpp_ui_gg_hud_title.hidewhendead = true;
@@ -81,7 +81,7 @@ ttg_init()
 	self.gpp_ui_gg_hud_title.stored_text = "^1Aim + f to use gobblegum";
 	print("Init desc");
 	self.gpp_ui_gg_hud_description = createFontString("objective", 1);
-	self.gpp_ui_gg_hud_description setPoint("center", "center", -300, 130);
+	self.gpp_ui_gg_hud_description setPoint("center", "center", 300, -30);
 	self.gpp_ui_gg_hud_description.alpha = 1;
 	self.gpp_ui_gg_hud_description.hidewheninmenu = true;
 	self.gpp_ui_gg_hud_description.hidewhendead = true;
@@ -161,17 +161,41 @@ get_gobblegum()
 	{
 		self.gobblegum_cooldown = 0;
 		self.gobblegum_identifier = random(self.gobblegum_list);
+		self.gobblegum_name = get_gobblegum_name(self.gobblegum_identifier);
 		self.last_gobblegum_round = level.round_number;
-		if (self.gpp_ui_gg_hud_description.stored_text != "You have a gobblegum. (" + self.gobblegum_identifier + ")")
+		if (self.gpp_ui_gg_hud_description.stored_text != "You have a gobblegum: (" + self.gobblegum_name + ")")
 		{
-			self.gpp_ui_gg_hud_description setText("You have a gobblegum. (" + self.gobblegum_identifier + ")");
-			self.gpp_ui_gg_hud_description.stored_text = "You have a gobblegum. (" + self.gobblegum_identifier + ")";
+			self.gpp_ui_gg_hud_description setText("You have a gobblegum: (" + self.gobblegum_name + ")");
+			self.gpp_ui_gg_hud_description.stored_text = "You have a gobblegum: (" + self.gobblegum_name + ")";
 		}
-		self iprintlnbold("You have received a gobblegum. (" + self.gobblegum_identifier + ")");
+		self iprintlnbold("You have received a gobblegum. (" + self.gobblegum_name + ")");
 	}
 	else
 	{
 		self iprintlnbold("You already have a gobblegum!");
+	}
+}
+
+get_gobblegum_name(identifier)
+{
+	switch(identifier) {
+		case "in_plain_sight":
+			return "In plain sight";
+			break;
+		case "resupply":
+			return "Resupply";
+			break;
+		case "multiplier":
+			return "Multiplier";
+			break;
+		case "perkdrop":
+			return "Perk drop";
+			break;
+		case "weapon_upgrade":
+			return "Weapon upgrade";
+			break;
+		default:
+			return "None";
 	}
 }
 
