@@ -68,6 +68,7 @@ ttg_init()
 	self.gobblegum_list[self.gobblegum_list.size] = "resupply";
 	self.gobblegum_list[self.gobblegum_list.size] = "multiplier";
 	self.gobblegum_list[self.gobblegum_list.size] = "perkdrop";
+	self.gobblegum_list[self.gobblegum_list.size] = "weapon_upgrade";
 	print("Init title");
 	self.gpp_ui_gg_hud_title = createFontString("objective", 1.5);
 	self.gpp_ui_gg_hud_title setPoint("center", "center", -300, 100);
@@ -112,6 +113,10 @@ ttg_update()
 				case "perkdrop":
 					self thread hud_activation("Perk drop!", "Activates a random perk", 7);
 					self thread gg_perkdrop();
+					break;
+				case "upgrade_weapon":
+					self thread hud_activation("Weapon upgrade!", "Pack-a-Punches the current weapon", 7);
+					self thread gg_weapon_upgrade();
 					break;
 				default:
 			}
@@ -192,6 +197,19 @@ gg_multiplier()
 gg_perkdrop()
 {
 	self maps\mp\zombies\_zm_powerups::specific_powerup_drop("free_perk", self.origin);
+	self.gobblegum_cooldown = 10;
+}
+
+gg_weapon_upgrade()
+{
+	current_weapon = self getcurrentweapon();
+	upgraded_weapon = maps\mp\zombies\_zm_weapons::get_upgrade_weapon(current_weapon, 1);
+	if (isdefined(upgraded_weapon)) {
+		self takeweapon(current_weapon);
+		self giveweapon( upgraded_weapon, 0, self maps\mp\zombies\_zm_weapons::get_pack_a_punch_weapon_options( upgraded_weapon ) );
+		self givestartammo( upgraded_weapon );
+		self switchtoweapon( upgraded_weapon );
+	}
 	self.gobblegum_cooldown = 10;
 }
 
