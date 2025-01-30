@@ -54,7 +54,6 @@ ttg_init()
 	level thread setup_gobblegum_machine(gobblegum_pos[0], gobblegum_pos[1], gobblegum_pos[2]);
 	self.gobblegum_cooldown = 0;
 	self.last_gobblegum_round = -1;
-	self.gobblegum_identifier = "weapon_upgrade";
 	print("Setting player arrays");
 	self.powerup_list = [];
 	self.powerup_list[self.powerup_list.size] = "nuke";
@@ -98,6 +97,7 @@ ttg_update()
 	{
 		if (self adsbuttonpressed() && self usebuttonpressed())
 		{
+			self iprintlnbold("Activated gobblegum: " + self.gobblegum_name);
 			switch(self.gobblegum_identifier) {
 				case "in_plain_sight":
 					self thread hud_activation("In plain sight!", "Zombies ignore the player for 10 seconds.", 7);
@@ -150,6 +150,7 @@ setup_gobblegum_machine(x, y, z)
 			else
 			{
 				player iprintlnbold("You have already received a gobblegum this round.");
+				wait 0.5;
 			}
 		}
 	}
