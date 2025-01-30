@@ -54,6 +54,7 @@ ttg_init()
 	level thread setup_gobblegum_machine(gobblegum_pos[0], gobblegum_pos[1], gobblegum_pos[2]);
 	self.gobblegum_cooldown = 0;
 	self.last_gobblegum_round = -1;
+	self.gobblegum_identifier = "weapon_upgrade";
 	print("Setting player arrays");
 	self.powerup_list = [];
 	self.powerup_list[self.powerup_list.size] = "nuke";
@@ -114,7 +115,7 @@ ttg_update()
 					self thread hud_activation("Perk drop!", "Activates a random perk", 7);
 					self thread gg_perkdrop();
 					break;
-				case "upgrade_weapon":
+				case "weapon_upgrade":
 					self thread hud_activation("Weapon upgrade!", "Pack-a-Punches the current weapon", 7);
 					self thread gg_weapon_upgrade();
 					break;
