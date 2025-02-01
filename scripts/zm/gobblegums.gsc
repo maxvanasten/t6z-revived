@@ -65,8 +65,6 @@ ttg_init()
 	self.powerup_list[self.powerup_list.size] = "free_perk";
 	self.gobblegum_list = [];
 	self.gobblegum_list[self.gobblegum_list.size] = "in_plain_sight";
-	self.gobblegum_list[self.gobblegum_list.size] = "resupply";
-	self.gobblegum_list[self.gobblegum_list.size] = "multiplier";
 	self.gobblegum_list[self.gobblegum_list.size] = "perkdrop";
 	self.gobblegum_list[self.gobblegum_list.size] = "weapon_upgrade";
 	print("Init title");
