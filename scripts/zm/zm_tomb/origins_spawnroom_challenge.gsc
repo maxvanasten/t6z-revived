@@ -272,7 +272,36 @@ player_handler()
 	}
 	self maps\mp\zombies\_zm_stats::increment_client_stat("tomb_generator_captured", 0);
 	self maps\mp\zombies\_zm_stats::increment_player_stat("tomb_generator_captured");
-	self give_random_perk();
+	self.all_perks = true;
+	foreach (perk_name in self.perk_list)
+	{
+		check_perk(perk_name);
+	}
+	if (self.all_perks)
+	{
+		self.upgraded_weapon_name = maps\mp\zombies\_zm_weapons::get_upgrade_weapon(self getcurrentweapon(), 1);
+		weaponslist = self getweaponslist();
+		for (i = 0; i < weaponslist.size; i++)
+		{
+			if (weaponslist[i] != "knife_zm")
+			{
+				self takeweapon(weaponslist[i]);
+			}
+		}
+		self giveWeapon(self.upgraded_weapon_name);
+	}
+	else
+	{
+		self give_random_perk();
+	}
+}
+
+check_perk(perk_name)
+{
+	if (!self hasPerk(perk_name))
+	{
+		self.all_perks = false;
+	}
 }
 
 give_random_perk()
