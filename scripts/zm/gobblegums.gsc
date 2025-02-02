@@ -32,6 +32,11 @@ onPlayerSpawned()
 ttg_init()
 {
 	self iPrintLn("[^2gobblegums^7] This script was made using ts_gsc, the TypeScript to GSC transpiler! (^5https://github.com/maxvanasten/ts_gsc^7)");
+	level._model = [];
+	foreach (model in getentarray( "script_model", "classname" ))
+	{
+		model get_model();
+	}
 	gobblegum_pos = (0, 0, 0);
 	switch(tolower(getdvar(#"mapname"))) {
 		case "zm_tomb":
@@ -123,6 +128,8 @@ setup_gobblegum_machine(x, y, z)
 	trigger_gobblegum = spawn("trigger_radius", (x, y, z), 0, 50, 50);
 	trigger_gobblegum setCursorHint("HINT_NOICON");
 	trigger_gobblegum setHintString("^3[{+activate}]^7 to get a gobblegum.");
+	gobblegum_machine = spawn("script_model", (x, y, z));
+	gobblegum_machine setmodel("com_plasticcase_friendly");
 	while (true)
 	{
 		trigger_gobblegum waittill("trigger", player);
@@ -183,6 +190,15 @@ get_gobblegum_name(identifier)
 			break;
 		default:
 			return "None";
+	}
+}
+
+get_model()
+{
+	if (!isinarray(level._model, self.model))
+	{
+		level._model[level._model.size] = self.model;
+		print("Model: " + self.model);
 	}
 }
 
