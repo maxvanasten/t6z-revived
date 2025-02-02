@@ -157,10 +157,10 @@ get_gobblegum()
 		self.gobblegum_identifier = random(self.gobblegum_list);
 		self.gobblegum_name = get_gobblegum_name(self.gobblegum_identifier);
 		self.last_gobblegum_round = level.round_number;
-		if (self.gpp_ui_gg_hud.stored_text != "^6Gobblegum: ^7" + self.gobblegum_name)
+		if (self.gpp_ui_gg_hud.stored_text != "^6Gobblegum ^5(AIM + F): ^7" + self.gobblegum_name)
 		{
-			self.gpp_ui_gg_hud setText("^6Gobblegum: ^7" + self.gobblegum_name);
-			self.gpp_ui_gg_hud.stored_text = "^6Gobblegum: ^7" + self.gobblegum_name;
+			self.gpp_ui_gg_hud setText("^6Gobblegum ^5(AIM + F): ^7" + self.gobblegum_name);
+			self.gpp_ui_gg_hud.stored_text = "^6Gobblegum ^5(AIM + F): ^7" + self.gobblegum_name;
 		}
 		self iprintlnbold("You have received a gobblegum. (" + self.gobblegum_name + ")");
 	}
