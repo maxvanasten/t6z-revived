@@ -67,26 +67,14 @@ ttg_init()
 	self.gobblegum_list[self.gobblegum_list.size] = "in_plain_sight";
 	self.gobblegum_list[self.gobblegum_list.size] = "perkdrop";
 	self.gobblegum_list[self.gobblegum_list.size] = "weapon_upgrade";
-	print("Init title");
-	self.gpp_ui_gg_hud_title = createFontString("objective", 1.5);
-	self.gpp_ui_gg_hud_title setPoint("center", "center", 300, -50);
-	self.gpp_ui_gg_hud_title.alpha = 1;
-	self.gpp_ui_gg_hud_title.hidewheninmenu = true;
-	self.gpp_ui_gg_hud_title.hidewhendead = true;
-	self.gpp_ui_gg_hud_title.color = (1, 1, 1);
-	self.gpp_ui_gg_hud_title setText("^1Aim + f to use gobblegum");
-	self.gpp_ui_gg_hud_title.stored_text = "^1Aim + f to use gobblegum";
-	print("Init desc");
-	self.gpp_ui_gg_hud_description = createFontString("objective", 1);
-	self.gpp_ui_gg_hud_description setPoint("center", "center", 300, -30);
-	self.gpp_ui_gg_hud_description.alpha = 1;
-	self.gpp_ui_gg_hud_description.hidewheninmenu = true;
-	self.gpp_ui_gg_hud_description.hidewhendead = true;
-	self.gpp_ui_gg_hud_description.color = (1, 1, 1);
-	self.gpp_ui_gg_hud_description setText("You don't have a gobblegum.");
-	self.gpp_ui_gg_hud_description.stored_text = "You don't have a gobblegum.";
-	self.gpp_ui_gg_hud_title.alpha = 0.5;
-	self.gpp_ui_gg_hud_description.alpha = 0.5;
+	self.gpp_ui_gg_hud = createFontString("objective", 1.5);
+	self.gpp_ui_gg_hud setPoint("CENTER", "CENTER", -225, -160);
+	self.gpp_ui_gg_hud.alpha = 1;
+	self.gpp_ui_gg_hud.hidewheninmenu = true;
+	self.gpp_ui_gg_hud.hidewhendead = true;
+	self.gpp_ui_gg_hud.color = (1, 1, 1);
+	self.gpp_ui_gg_hud setText("^6No gobblegum");
+	self.gpp_ui_gg_hud.stored_text = "^6No gobblegum";
 }
 
 ttg_update()
@@ -98,23 +86,23 @@ ttg_update()
 			self iprintlnbold("Activated gobblegum: " + self.gobblegum_name);
 			switch(self.gobblegum_identifier) {
 				case "in_plain_sight":
-					self thread hud_activation("In plain sight!", "Zombies ignore the player for 10 seconds.", 7);
+					self thread hud_activation("Zombies ignore the player for 10 seconds.", 7, true);
 					self thread gg_in_plain_sight();
 					break;
 				case "resupply":
-					self thread hud_activation("Resupply!", "Activates a max ammo.", 7);
+					self thread hud_activation("Activates a max ammo.", 7, true);
 					self thread gg_resupply();
 					break;
 				case "multiplier":
-					self thread hud_activation("Multiplier!", "Activates a double points.", 7);
+					self thread hud_activation("Activates a double points.", 7, true);
 					self thread gg_multiplier();
 					break;
 				case "perkdrop":
-					self thread hud_activation("Perk drop!", "Activates a random perk", 7);
+					self thread hud_activation("Activates a random perk", 7, true);
 					self thread gg_perkdrop();
 					break;
 				case "weapon_upgrade":
-					self thread hud_activation("Weapon upgrade!", "Pack-a-Punches the current weapon", 7);
+					self thread hud_activation("Pack-a-Punches the current weapon", 7, true);
 					self thread gg_weapon_upgrade();
 					break;
 				default:
@@ -162,10 +150,10 @@ get_gobblegum()
 		self.gobblegum_identifier = random(self.gobblegum_list);
 		self.gobblegum_name = get_gobblegum_name(self.gobblegum_identifier);
 		self.last_gobblegum_round = level.round_number;
-		if (self.gpp_ui_gg_hud_description.stored_text != "You have a gobblegum: (" + self.gobblegum_name + ")")
+		if (self.gpp_ui_gg_hud.stored_text != "^6Gobblegum: ^7" + self.gobblegum_name)
 		{
-			self.gpp_ui_gg_hud_description setText("You have a gobblegum: (" + self.gobblegum_name + ")");
-			self.gpp_ui_gg_hud_description.stored_text = "You have a gobblegum: (" + self.gobblegum_name + ")";
+			self.gpp_ui_gg_hud setText("^6Gobblegum: ^7" + self.gobblegum_name);
+			self.gpp_ui_gg_hud.stored_text = "^6Gobblegum: ^7" + self.gobblegum_name;
 		}
 		self iprintlnbold("You have received a gobblegum. (" + self.gobblegum_name + ")");
 	}
@@ -237,32 +225,30 @@ gg_weapon_upgrade()
 	self.gobblegum_cooldown = 10;
 }
 
-hud_activation(title, description, duration)
+hud_activation(text, duration, empty)
 {
-	if (self.gpp_ui_gg_hud_title.stored_text != title)
+	current_text = self.gpp_ui_gg_hud.stored_text;
+	if (self.gpp_ui_gg_hud.stored_text != "^6" + text)
 	{
-		self.gpp_ui_gg_hud_title setText(title);
-		self.gpp_ui_gg_hud_title.stored_text = title;
+		self.gpp_ui_gg_hud setText("^6" + text);
+		self.gpp_ui_gg_hud.stored_text = "^6" + text;
 	}
-	if (self.gpp_ui_gg_hud_description.stored_text != description)
-	{
-		self.gpp_ui_gg_hud_description setText(description);
-		self.gpp_ui_gg_hud_description.stored_text = description;
-	}
-	self.gpp_ui_gg_hud_title.alpha = 0.8;
-	self.gpp_ui_gg_hud_description.alpha = 0.5;
 	wait duration;
-	if (self.gpp_ui_gg_hud_title.stored_text != "^1Aim + f to use gobblegum")
+	if (empty)
 	{
-		self.gpp_ui_gg_hud_title setText("^1Aim + f to use gobblegum");
-		self.gpp_ui_gg_hud_title.stored_text = "^1Aim + f to use gobblegum";
+		if (self.gpp_ui_gg_hud.stored_text != "^6No gobblegum")
+		{
+			self.gpp_ui_gg_hud setText("^6No gobblegum");
+			self.gpp_ui_gg_hud.stored_text = "^6No gobblegum";
+		}
 	}
-	if (self.gpp_ui_gg_hud_description.stored_text != "You don't have a gobblegum.")
+	else
 	{
-		self.gpp_ui_gg_hud_description setText("You don't have a gobblegum.");
-		self.gpp_ui_gg_hud_description.stored_text = "You don't have a gobblegum.";
+		if (self.gpp_ui_gg_hud.stored_text != current_text)
+		{
+			self.gpp_ui_gg_hud setText(current_text);
+			self.gpp_ui_gg_hud.stored_text = current_text;
+		}
 	}
-	self.gpp_ui_gg_hud_title.alpha = 0.5;
-	self.gpp_ui_gg_hud_description.alpha = 0.5;
 }
 
