@@ -93,7 +93,7 @@ start_server() {
     # Main server loop
     while true; do
         # Start the server using Wine
-        nice -n -10 wine ./bin/plutonium-bootstrapper-win32.exe $GAME_MODE $GAME_PATH -dedicated \
+        nice -n -10 wine /opt/T6Server/Plutonium/bin/plutonium-bootstrapper-win32.exe $GAME_MODE $GAME_PATH -dedicated \
             +set key $SERVER_KEY \
             +set fs_game $MOD \
             +set net_port $SERVER_PORT \
