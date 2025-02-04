@@ -24,6 +24,11 @@ for server in /opt/T6Server/t6z-revived/servers/*; do
     fi
 done
 
+# Start serving mod files
+cd /opt/T6Server/Plutonium/storage/t6
+python3 -m http.server 8000 &
+PID4=$!
+
 # Start each server and collect their PIDS
 /opt/T6Server/t6z-revived/servers/origins_gungame/start.sh &
 PID1=$!
@@ -36,4 +41,4 @@ cd /home/debian/iw4m
 PID3=$!
 
 # Wait for each server to finish
-wait $PID1 $PID2 $PID3
+wait $PID1 $PID2 $PID3 $PID4
