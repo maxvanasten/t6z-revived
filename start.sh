@@ -35,6 +35,8 @@ PID1=$!
 /opt/T6Server/t6z-revived/servers/origins_solo/start.sh &
 PID2=$!
 
+sleep 30s
+
 # Start IW4MAdmin
 cd /home/debian/iw4m
 /home/debian/iw4m/StartIW4MAdmin.sh &
