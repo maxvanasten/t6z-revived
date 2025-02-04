@@ -56,8 +56,8 @@ readonly INSTALL_DIR="/opt/T6Server/Plutonium"
 # Game mod selection
 # This is the game mod that your server will run.
 # For Exemple mode, use: "mods/zm_weapons"
-# TODO: Make mod for this server
 readonly MOD=""
+# TODO: Create mod for solo server
 # Note: To switch to Zombie mode, make the following changes:
 # 1. Set GAME_PATH to "/opt/T6Server/Server/Zombie"
 # 2. Set CONFIG_FILE to "dedicated_zm.cfg"
@@ -81,6 +81,7 @@ update_server() {
 # Function to start and maintain the server
 # This function starts the server and automatically restarts it if it crashes
 start_server() {
+    cd /opt/T6Server/Plutonium
     local timestamp
     printf -v timestamp '%(%F_%H:%M:%S)T' -1
     
