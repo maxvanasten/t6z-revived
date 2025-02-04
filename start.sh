@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Start each server and collect their PIDS
 /opt/T6Server/t6z-revived/servers/origins_gungame/start.sh &
 PID1=$!

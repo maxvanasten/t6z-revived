@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Fetch latest files
 git pull
 
