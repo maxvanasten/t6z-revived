@@ -13,5 +13,7 @@ for server in /opt/T6Server/t6z-revived/servers/*; do
     # Move start file
     # cp $server/start.sh /opt/T6Server/Plutonium/
     # Move mod files
-    cp -r $server/mods/* /opt/T6Server/Plutonium/storage/t6/mods/
+    if test -d $server/mods; then
+        cp -r $server/mods/* /opt/T6Server/Plutonium/storage/t6/mods/
+    done
 done
