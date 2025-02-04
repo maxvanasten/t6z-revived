@@ -125,11 +125,10 @@ setup_gobblegum_machine(x, y, z)
 {
 	level endon("end_game");
 	print("Creating trigger. x: " + x + " y: " + y + " z: " + z);
-	trigger_gobblegum = spawn("trigger_radius", (x, y, z), 0, 50, 50);
+	trigger_gobblegum = spawn("trigger_radius", (x, y, z+30), 0, 50, 50);
 	trigger_gobblegum setCursorHint("HINT_NOICON");
 	trigger_gobblegum setHintString("^3[{+activate}]^7 to get a gobblegum.");
-	gobblegum_machine = spawn("script_model", (x, y, z));
-	gobblegum_machine setmodel("com_plasticcase_friendly");
+	entities = getEntArray("script_model", "");
 	while (true)
 	{
 		trigger_gobblegum waittill("trigger", player);
