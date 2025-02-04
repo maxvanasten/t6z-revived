@@ -1,10 +1,8 @@
-n = 0
-for server in /opt/T6Server/t6z-revived/servers/*; do
-    n++
-    $server/start.sh &
-    PID[$n]=$!
-done
+# Start each server and collect their PIDS
+/opt/T6Server/t6z-revived/servers/origins_gungame/start.sh &
+PID1=$!
+/opt/T6Server/t6z-revived/servers/origins_solo/start.sh &
+PID2=$!
 
-for i in ${PID[@]}; do
-    wait $i
-done
+# Wait for each server to finish
+wait $PID1 $PID2
