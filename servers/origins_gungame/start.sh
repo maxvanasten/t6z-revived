@@ -75,7 +75,7 @@ readonly ADDITIONAL_PARAMS=""
 # Function to update server files
 # This function uses the Plutonium updater to ensure your server is running the latest version
 update_server() {
-    ./plutonium-updater -d "$INSTALL_DIR"
+    /opt/T6Server/Plutonium/plutonium-updater -d "$INSTALL_DIR"
 }
 
 # Function to start and maintain the server
