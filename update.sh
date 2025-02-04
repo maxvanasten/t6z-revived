@@ -15,5 +15,5 @@ for server in /opt/T6Server/t6z-revived/servers/*; do
     # Move mod files
     if test -d $server/mods; then
         cp -r $server/mods/* /opt/T6Server/Plutonium/storage/t6/mods/
-    done
+    fi
 done
